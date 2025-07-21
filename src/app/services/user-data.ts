@@ -9,9 +9,12 @@ import { catchError, pipe, tap, of, BehaviorSubject, finalize } from 'rxjs';
 export class UserData {
   constructor(private _http: HttpClient) {}
   userData$ = new BehaviorSubject<returnedValue | null>(null);
+  //in service
   // users$ = this.userData$.asObservable();
+  //subscribe in component
   //this can act like a getter function of value and we need to subscribe to get ther values from it
   //async subscription in other component ,this is how we use async pipe
+  //in other component (async automatic subscription and unsubscription)
   // users$ = this.userService.users$;
   //<div *ngFor="let user of users$ | async">
 
