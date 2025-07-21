@@ -4,6 +4,7 @@
   class="scrollable"
   *ngIf="Users.length"
 >
+  <!-- <section class="card" *ngFor="let user of (userData$ | async)?.users"> -->
   <section class="card" *ngFor="let user of Users">
     <h1>{{ user.username }}</h1>
     <h3>age:- {{ user.age }}</h3>

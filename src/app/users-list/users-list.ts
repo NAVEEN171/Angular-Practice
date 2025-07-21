@@ -4,10 +4,13 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import { UserData } from '../services/user-data';
 import { User } from '../interfaces/user-interfaces';
 import { CommonModule } from '@angular/common';
+import { returnedValue } from '../interfaces/user-interfaces';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -15,26 +18,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './users-list.html',
   styleUrl: './users-list.scss',
 })
-export class UsersList implements OnInit {
+export class UsersList implements OnInit, OnDestroy {
   @ViewChild('scrollable') scrollableElement!: ElementRef<HTMLDivElement>;
+  // userData$!: Observable<returnedValue | null>;
+
   Users: User[] = [];
   private PAGES_PER_PAGE = 10;
   isLoading: boolean = false;
   tempFilteredDate: User[] = [];
-  constructor(private userDataService: UserData) {
-    this.userDataService.getUserDetails().subscribe({
-      next: (val) => {
-        if (val && val.users.length) {
-          this.filterUsersData(val.users);
-        }
-        this.isLoading = false;
-      },
-      error: (err: Error) => {
-        console.log(err);
-        this.isLoading = false;
-      },
-    });
-  }
+  private userSubscription!: Subscription;
+
+  constructor(private userDataService: UserData) {}
 
   onScroll(event: Event) {
     if (this.scrollableElement) {
@@ -76,6 +70,24 @@ export class UsersList implements OnInit {
   }
   ngOnInit(): void {
     this.isLoading = true;
+
+    // this.userData$ = this.userDataService.getUserDetails();
+
+    this.userSubscription = this.userDataService.getUserDetails().subscribe({
+      next: (val) => {
+        if (val && val.users.length) {
+          this.filterUsersData(val.users);
+        }
+        this.isLoading = false;
+      },
+      error: (err: Error) => {
+        console.log(err);
+        this.isLoading = false;
+      },
+    });
     this.userDataService.fetchPage(1);
+  }
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 }
