@@ -1,0 +1,17 @@
+<div
+  (scroll)="onScroll($event)"
+  #scrollable
+  class="scrollable"
+  *ngIf="Users.length"
+>
+  <section class="card" *ngFor="let user of Users">
+    <h1>{{ user.username }}</h1>
+    <h3>age:- {{ user.age }}</h3>
+
+    <h2>gender:- {{ user.gender }}</h2>
+    <h3>phone:- {{ user.phone }}</h3>
+    <h3>role:- {{ user.role }}</h3>
+    <img [src]="user.image" />
+  </section>
+  <div class="loader" *ngIf="isLoading">Loading ...</div>
+</div>
