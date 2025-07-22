@@ -1,0 +1,10 @@
+<input
+  #weathersearch
+  type="text"
+  [(ngModel)]="city"
+  (input)="onSearchInputChange($any($event)?.target?.value)"
+/>
+
+<pre>
+    {{ weatherInfo | json }}
+</pre>
