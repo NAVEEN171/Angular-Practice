@@ -1,0 +1,38 @@
+<div class="paginated-list">
+  <div>
+    <label for="pages">Total Pages</label>
+    <input
+      type="number"
+      id="pages"
+      name="pages"
+      placeholder="totalPages..."
+      [(ngModel)]="totalPages"
+    />
+  </div>
+  <div>
+    <label for="currentPage">Current Page</label>
+    <input
+      type="number"
+      id="currentpage"
+      name="currentpage"
+      placeholder="currentPage..."
+      [(ngModel)]="currentPage"
+    />
+  </div>
+
+  <div class="btns-list">
+    <button
+      class=""
+      [disabled]="ele === '...'"
+      [ngClass]="currentPage.toString() === ele ? 'current-page' : ''"
+      *ngFor="let ele of paginatedArray"
+      (click)="currentPageChange(ele)"
+    >
+      {{ ele }}
+    </button>
+  </div>
+
+  <div>
+    <button (click)="generatePaginatedArray()">Generate</button>
+  </div>
+</div>

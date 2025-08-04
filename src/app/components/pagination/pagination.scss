@@ -1,0 +1,16 @@
+.paginated-list {
+  margin: 10px 20px;
+}
+.current-page {
+  background-color: rgb(135, 135, 204);
+}
+.paginated-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btns-list {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+}
